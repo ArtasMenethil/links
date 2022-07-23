@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+    {% if user.is_authenticated == True %}
+        <div class="links_add container">
+            <h1>Создание ссылок</h1>
+            <div class="course_add_first">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn_create_link">Добавить</button>
+                </form>
+            </div>
+            <div class="link_user">
+                {% for elem in links_users %}
+
+                    <div class="link">
+                        <a href="{{elem.link_url}}">
+                            <p>/link/{{ elem.link }}/</p>
+                        </a>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+            <p>Вам нужно <a href="{% url 'reg' %}">зарегистрироваться</a></p>
+    {% endif %}
+{% endblock %}
